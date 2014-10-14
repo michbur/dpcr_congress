@@ -1,0 +1,125 @@
+\documentclass[final]{beamer}
+\usepackage{grffile}
+\mode<presentation>{\usetheme{CambridgeUSPOL}}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage[notocbib]{apacite}
+\usepackage{graphicx}
+\usepackage{array,booktabs,tabularx}
+\newcolumntype{Z}{>{\centering\arraybackslash}X}
+
+%\usepackage{times}\usefonttheme{professionalfonts}  % times is obsolete
+\usefonttheme[onlymath]{serif}
+\boldmath
+\usepackage[orientation=portrait,size=a0,scale=1.4,debug]{beamerposter}                       
+
+\usecolortheme{seagull}
+\useinnertheme{rectangles}
+\setbeamercolor{item projected}{bg=darkred}
+% \setbeamertemplate{enumerate items}[default]
+\setbeamertemplate{navigation symbols}{}
+\setbeamercovered{transparent}
+\setbeamercolor{block title}{fg=darkred}
+\setbeamercolor{local structure}{fg=darkred}
+
+\setbeamercolor*{enumerate item}{fg=darkred}
+\setbeamercolor*{enumerate subitem}{fg=darkred}
+\setbeamercolor*{enumerate subsubitem}{fg=darkred}
+
+\setbeamercolor*{itemize item}{fg=darkred}
+\setbeamercolor*{itemize subitem}{fg=darkred}
+\setbeamercolor*{itemize subsubitem}{fg=darkred}
+
+\newlength{\columnheight}
+\setlength{\columnheight}{94cm}
+\renewcommand{\thetable}{}
+\def\andname{,}
+\authornote{}
+
+\renewcommand{\APACrefatitle}[2]{}
+\renewcommand{\bibliographytypesize}{\footnotesize} 
+\renewcommand{\APACrefYearMonthDay}[3]{%
+  {\BBOP}{#1}
+  {\BBCP}
+}
+
+\begin{document}
+
+
+
+<<knitrIntro, echo = FALSE, message=FALSE>>=
+library(xtable)
+library(ggplot2)
+library(reshape2)
+load("dpcrposter_data.RData")
+@
+
+
+\date{}
+\author{Micha³  Burdukiewicz\inst{1}, Stefan R\"odiger\inst{2}}
+% \institute{\begin{tabular}[h]{c@{\hskip 4cm}c}
+%       \textsuperscript{1}Department of Genomics & \textsuperscript{2}Institute of Mathematics and Computer Science \\
+%       University of Wroc³aw & Wroc³aw University of Technology
+%   \end{tabular}  
+% }
+
+\institute{\textsuperscript{1}University of Wroc³aw, Department of Genomics, Poland 
+
+\vspace{0.5cm}
+
+\textsuperscript{2}Faculty of Natural Sciences, Brandenburg University of Technology 
+Cottbus--Senftenberg, Germany}
+\title{\huge Statistical methods of comparing digital PCR experiments}
+
+\begin{frame}
+  \begin{columns}
+    \begin{column}{.44\textwidth}
+      \begin{beamercolorbox}[center,wd=\textwidth]{postercolumn}
+        \begin{minipage}[T]{.95\textwidth}
+          \parbox[t][\columnheight]{\textwidth}
+            {
+    \begin{block}{Introduction}
+      Words, words, words~\cite{Huggett2013}     
+    \end{block}
+    
+    \vfill
+       
+    
+            }
+        \end{minipage}
+      \end{beamercolorbox}
+    \end{column}
+    
+    
+%new column ------------------------------------------------------    
+    
+    \begin{column}{.53\textwidth}
+      \begin{beamercolorbox}[center,wd=\textwidth]{postercolumn}
+        \begin{minipage}[T]{.95\textwidth}  
+          \parbox[t][\columnheight]{\textwidth}
+            {
+            
+       
+    \begin{block}{Block title}
+    Generalized Linear Models (GLM) allows flexible statistical analysis
+
+    \end{block}
+    \vfill    
+    
+
+     
+     
+    \begin{block}{Bibliography}
+      \bibliographystyle{apacite2}
+      \bibliography{dpcrcits}
+    \end{block}
+    \vfill
+            }
+        \end{minipage}
+      \end{beamercolorbox}
+    \end{column}
+  \end{columns}  
+\end{frame}
+\end{document}

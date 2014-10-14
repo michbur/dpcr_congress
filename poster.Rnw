@@ -52,20 +52,22 @@
 <<knitrIntro, echo = FALSE, message=FALSE>>=
 library(xtable)
 library(ggplot2)
-library(reshape2)
+library(grid)
+library(gridExtra)
+source("poster_functions.R")
 load("dpcrposter_data.RData")
 @
 
 
 \date{}
-\author{Micha³  Burdukiewicz\inst{1}, Stefan R\"odiger\inst{2}}
+\author{Micha\l{}  Burdukiewicz\inst{1}, Stefan R\"odiger\inst{2}}
 % \institute{\begin{tabular}[h]{c@{\hskip 4cm}c}
 %       \textsuperscript{1}Department of Genomics & \textsuperscript{2}Institute of Mathematics and Computer Science \\
 %       University of Wroc³aw & Wroc³aw University of Technology
 %   \end{tabular}  
 % }
 
-\institute{\textsuperscript{1}University of Wroc³aw, Department of Genomics, Poland 
+\institute{\textsuperscript{1}Department of Genomics, University of Wroc\l{}aw, Poland 
 
 \vspace{0.5cm}
 
@@ -86,6 +88,23 @@ Cottbus--Senftenberg, Germany}
     
     \vfill
        
+    \begin{block}{Figure}
+    <<mc_figures, echo = FALSE, message=FALSE,fig.width=12.3,fig.height=30>>=
+p1 <- plot_dpcrtest(test1stats) + ggtitle("1000 partitions")
+p2 <- plot_dpcrtest(test2stats) + ggtitle("2000 partitions")
+p3 <- plot_dpcrtest(test3stats) + ggtitle("5000 partitions")
+
+mylegend <-g_legend(p1 + theme(legend.direction="horizontal")) 
+
+grid.arrange(p1 + guides(fill = FALSE, size = FALSE),
+             p2 + guides(fill = FALSE, size = FALSE),
+             p3 + guides(fill = FALSE, size = FALSE),
+             mylegend,
+             nrow = 4, heights=c(10, 10, 10, 1))
+@
+
+    \end{block}
+    \vfill  
     
             }
         \end{minipage}

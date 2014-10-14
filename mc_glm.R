@@ -49,18 +49,17 @@ save(test1, test2, file = "dpcrposter_data.RData")
 
 
 
-
-
-
-plot_dpcrtest <- function(test_data) {
-  test1_stats <- sapply(1L:length(test_data[[1]]), function(position) {
+calc_teststats <- function(test_data)
+  sapply(1L:length(test_data[[1]]), function(position) {
     tmp <- sapply(test_data, function(test) test[position])
     c(mean(tmp), sd(tmp))
   })
-  
+
+
+plot_dpcrtest <- function(test_stats) {
   test_df <- data.frame(t(rbind(rep(c(1, 1:5*10, 2:10*50), 20), 
                                 as.vector(sapply(c(0:5*10, 2:10*50, 6:10*100), rep, 15)), 
-                                test1_stats)))
+                                test_stats)))
   colnames(test_df) <- c("added_molecules", "base_number", "mean", "sd")
   
   test_df[["added_molecules"]] <- as.factor(test_df[["added_molecules"]])
@@ -73,7 +72,8 @@ plot_dpcrtest <- function(test_data) {
     geom_tile(aes(x = base_number, y = added_molecules, fill = mean)) +
     theme(legend.background = element_rect(fill="NA")) +
     geom_point(aes(x = base_number, y = added_molecules, size = sd), range = c(3, 9)) +
-    scale_size_continuous(name = "standard deviation\nof p-value") +
+    scale_size_continuous(name = "standard deviation\nof p-value", 
+                          breaks = c(0, 0.005, 0.05, 0.5)) +
     scale_x_discrete("Base number of molecules") +
     scale_y_discrete("Added number of molecules")
 }
@@ -132,10 +132,21 @@ clusterEvalQ(cl, {
 system.time(tmp <- test_dpcr(5000, 4, cl))
 stopCluster(cl)
 
-plot_dpcrtest(test1)
+plot_dpcrtest(test1) + ggtitle("1000 partitions")
 plot_dpcrtest(test2)
 plot_dpcrtest(test3)
 
-save(test1, test2, test3, file = "dpcrposter_data.RData")
+save(test1, test2, test3, file = "dpcrposter_rawdata.RData")
 
 load("dpcrposter_data.RData")
+
+
+test1stats <- calc_teststats(test1)
+test2stats <- calc_teststats(test2)
+test3stats <- calc_teststats(test3)
+
+save(test1stats, test2stats, test3stats, file = "dpcrposter_data.RData")
+
+plot_dpcrtest(test1stats) + ggtitle("1000 partitions")
+plot_dpcrtest(test2stats) + ggtitle("2000 partitions")
+plot_dpcrtest(test3stats) + ggtitle("5000 partitions")

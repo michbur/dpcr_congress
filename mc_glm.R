@@ -83,7 +83,7 @@ test_dpcr <- function(size, times = 4000, cl)
   pblapply(1L:times, function(dummy_variable) {
     parSapply(cl, c(0:5*10, 2:10*50, 6:10*100), function(base_number) {
       sapply(c(1, 1:5*10, 2:10*50), function(added_molecules) {
-        dat <- dpcR::sim_adpcr(m = base_number, n = size, times = 10000, pos_sums = FALSE, 
+        dat <- sim_adpcr(m = base_number, n = size, times = 10000, pos_sums = FALSE, 
                                n_panels = 1) 
         dat2 <- dat
         ids <- sample(1L:size, added_molecules)
@@ -93,7 +93,7 @@ test_dpcr <- function(size, times = 4000, cl)
                                   counts = as.numeric(c(as.vector(dat) > 0, 
                                                         sample(as.vector(dat2)) > 0)))
         fit <- glm(counts ~ experiment + 0, data = counts_data, family = quasipoisson)
-        multcomp:::summary.glht(multcomp::glht(fit, linfct = mcp(experiment = "Tukey")))[["test"]][["pvalues"]]
+        summary(glht(fit, linfct = mcp(experiment = "Tukey")))[["test"]][["pvalues"]]
       })
     })
   })
@@ -121,7 +121,7 @@ test_dpcr_slow <- function(size, times = 4000)
 test2 <- test_dpcr(2000, 40)
 test3 <- test_dpcr(5000, 40)
 
-
+library(parallel)
 cl <- makeCluster(6)
 clusterEvalQ(cl, {
   library(dpcR)
@@ -129,7 +129,9 @@ clusterEvalQ(cl, {
   NULL
 })
 #system.time(tmp <- test_dpcr_slow(1000, 4))
+system.time(tmp <- test_dpcr(1000, 4, cl))
 system.time(tmp <- test_dpcr(5000, 4, cl))
+system.time(tmp <- test_dpcr(10000, 4, cl))
 stopCluster(cl)
 
 plot_dpcrtest(test1) + ggtitle("1000 partitions")

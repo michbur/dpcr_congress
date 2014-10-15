@@ -137,7 +137,20 @@ grid.arrange(p1 + guides(fill = FALSE, size = FALSE),
     \end{block}
     \vfill    
     
+    \begin{block}{showcase - rates}
+    <<dube_bat, echo = FALSE, message=FALSE,results='asis'>>=
+adpcr1 <- sim_adpcr(m = 10, n = 765, times = 1000, pos_sums = FALSE, n_panels = 3)
+adpcr2 <- sim_adpcr(m = 30, n = 765, times = 1000, pos_sums = FALSE, n_panels = 2)
+dat <- bind_dpcr(adpcr1, adpcr2)
+dpcrtab <- summary(dat, print = FALSE)
+print(xtable(dpcrtab[["summary"]][, 1:5]))
+@
 
+    \end{block}
+    \vfill 
+    
+    
+     
      
      
     \begin{block}{Bibliography}

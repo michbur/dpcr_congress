@@ -54,6 +54,7 @@ library(xtable)
 library(ggplot2)
 library(grid)
 library(gridExtra)
+library(dpcR)
 source("poster_functions.R")
 load("dpcrposter_data.RData")
 @
@@ -83,17 +84,15 @@ Cottbus--Senftenberg, Germany}
           \parbox[t][\columnheight]{\textwidth}
             {
     \begin{block}{Introduction}
-      Words, words, words~\cite{Huggett2013}     
+    We propose a method of comparing results of digital PCR experiments using rigorious statistical approach. A normal approach based on the confidence intervals fails during multiple comparisions, because of the decline of the coverage probability~\cite{dube_mathematical_2008}. On the other hand, methods based on the uncertainty do not take into account number of repetitions which could be used to more accurately estimate parameters~\cite{bhat_single_2009}.
+    
+    \hskip 0.5cm
+    
+    Our method, based on Generalized Linear Models (GLM) predicts rates of digital PCR experiments using Poisson regression. Afterwards, estimates are compared against themselves using t-test. Obtained p-values and confidence intervals does not require further correction, because the familywise error is controlled through the whole analysis.
     \end{block}
     
     \vfill
             
-       
-    \begin{block}{Evaluation of proposed framework}
-    The proposed framework was evaluated in three Monte Carlo experiments (2000 repetitions each experiment) with accordingly 1000, 5000 (results not shown) and 10 000 partitions. During each repetition, a set of partitions was generated using Dube's method (CITATION) with determined number of molecules ('Base number of molecules' on X-axis). The set was copied and to randomly chosen partitions a number of molecules ('Added number of molecules' on Y-axis) was added. Two arrays were compared using proposed method.
-
-    \end{block}
-    \vfill  
     
     \begin{block}{Monte Carlo results}
     <<mc_figures, echo = FALSE, message=FALSE,fig.width=12.3,fig.height=22>>=
@@ -112,6 +111,11 @@ grid.arrange(p1 + guides(fill = FALSE, size = FALSE),
     \end{block}
     \vfill  
     
+    \begin{block}{Evaluation of proposed framework}
+    The proposed framework was evaluated in three Monte Carlo experiments (each repeated 2000 times) with accordingly 1000, 5000 (results not shown) and 10 000 partitions. During each repetition, a set of partitions was generated using Dube's method (CITATION) with determined number of molecules ('Base number of molecules' on X-axis). The set was copied and a number of molecules ('Added number of molecules' on Y-axis) was added to randomly chosen partitions. Two arrays were compared using proposed method.
+
+    \end{block}
+    \vfill  
             }
         \end{minipage}
       \end{beamercolorbox}
@@ -137,7 +141,7 @@ grid.arrange(p1 + guides(fill = FALSE, size = FALSE),
      
      
     \begin{block}{Bibliography}
-      \bibliographystyle{apacite2}
+      \bibliographystyle{apacite}
       \bibliography{dpcrcits}
     \end{block}
     \vfill

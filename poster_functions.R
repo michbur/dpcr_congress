@@ -20,8 +20,10 @@ plot_dpcrtest <- function(test_stats) {
     scale_y_discrete("Added number of molecules") +
     theme(plot.background=element_rect(fill = "transparent",colour = "transparent"),
           axis.text.x = element_text(size=16), axis.text.y = element_text(size=16),
-          axis.title.x = element_text(size=19), axis.title.y = element_text(size=19),
-          legend.text = element_text(size=16), legend.title = element_text(size=19))
+          axis.title.x = element_text(size=19, vjust = -1), 
+          axis.title.y = element_text(size=19, vjust = 1),
+          legend.text = element_text(size=16), legend.title = element_text(size=19),
+          plot.title = element_text(size=27))
 }
 
 g_legend<-function(a.gplot){

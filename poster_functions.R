@@ -13,14 +13,15 @@ plot_dpcrtest <- function(test_stats) {
                                  "#F0E442", "#E69F00", "#D55E00")) +
     geom_tile(aes(x = base_number, y = added_molecules, fill = mean)) +
     theme(legend.background = element_rect(fill="NA")) +
-    geom_point(aes(x = base_number, y = added_molecules, size = sd), range = c(3, 9)) +
-    scale_size_continuous(name = "standard deviation\nof p-value", 
-                          breaks = c(0, 0.005, 0.05, 0.5)) +
+    geom_point(aes(x = base_number, y = added_molecules, size = sd), range = c(5, 12)) +
+    scale_size_continuous(name = "Standard deviation of p-value:", 
+                          breaks = c(0, 0.0005, 0.005, 0.05, 0.5)) +
     scale_x_discrete("Base number of molecules") +
     scale_y_discrete("Added number of molecules") +
     theme(plot.background=element_rect(fill = "transparent",colour = "transparent"),
           axis.text.x = element_text(size=16), axis.text.y = element_text(size=16),
-          axis.title.x = element_text(size=19), axis.title.y = element_text(size=19))
+          axis.title.x = element_text(size=19), axis.title.y = element_text(size=19),
+          legend.text = element_text(size=16), legend.title = element_text(size=19))
 }
 
 g_legend<-function(a.gplot){

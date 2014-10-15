@@ -17,6 +17,12 @@ test_dpcr <- function(size, times = 4000, cl)
     })
   })
 
+calc_teststats <- function(test_data)
+  sapply(1L:length(test_data[[1]]), function(position) {
+    tmp <- sapply(test_data, function(test) test[position])
+    c(mean(tmp), sd(tmp))
+  })
+
 library(pbapply)
 library(parallel)
 cl <- makeCluster(6)
@@ -33,3 +39,8 @@ stopCluster(cl)
 
 save(mc1000, mc5000, mc10000, file = "fin_dpcrposter_rawdata.RData")
 
+mc1000stats <- calc_teststats(mc1000)
+mc5000stats <- calc_teststats(mc5000)
+mc10000stats <- calc_teststats(mc10000)
+
+save(mc1000stats, mc5000stats, mc10000stats, file = "dpcrposter_data.RData")

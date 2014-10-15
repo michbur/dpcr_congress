@@ -97,9 +97,9 @@ Cottbus--Senftenberg, Germany}
     
     \begin{block}{Monte Carlo results}
     <<mc_figures, echo = FALSE, message=FALSE,fig.width=12.3,fig.height=30>>=
-p1 <- plot_dpcrtest(test1stats) + ggtitle("1000 partitions")
-p2 <- plot_dpcrtest(test2stats) + ggtitle("2000 partitions")
-p3 <- plot_dpcrtest(test3stats) + ggtitle("5000 partitions")
+p1 <- plot_dpcrtest(mc1000stats) + ggtitle("1000 partitions")
+p2 <- plot_dpcrtest(mc5000stats) + ggtitle("5000 partitions")
+p3 <- plot_dpcrtest(mc10000stats) + ggtitle("10000 partitions")
 
 mylegend <-g_legend(p1 + theme(legend.direction="horizontal")) 
 

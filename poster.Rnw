@@ -88,9 +88,9 @@ Cottbus--Senftenberg, Germany}
             
      \begin{block}{Test scheme}
 
-    Generalized Linear Models (GLM) are linear models for data, where response variable has non-normal distributions (as binomially distributed positive partitions in digital PCR experiments). We propose a linear model reflecting relationships in results of digital PCR:
+    Generalized Linear Models (GLM) are linear models for data, where response variable has non-normal distributions (as binomially distributed positive partitions in digital PCR experiments). We propose a model reflecting relationships in results of digital PCR:
 
-    \begin{equation}
+    \begin{equation*}
     \log{Y} = \beta^T X
     \end{equation}
     

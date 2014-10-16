@@ -78,14 +78,14 @@ Cottbus--Senftenberg, Germany}
           \parbox[t][\columnheight]{\textwidth}
             {
     \begin{block}{Introduction}
-    Currently, there are no reliable method of comparing results of digital PCR experiments and estimated means copies per partitions ($\lambda$). An approach based on the confidence intervals~\shortcite{dube_mathematical_2008} fails during multiple comparisions, because of the decline of the coverage probability. On the other hand, methods based on the uncertainty~\shortcite{bhat_single_2009} do not take into account number of repetitions. We propose a novel method of comparing results of digital PCR experiments using rigorious statistical approach. 
+    Currently, there are no reliable methods for comparing results of digital PCR (dPCR) experiments and estimated mean copies per partitions ($\lambda$). An approach based on the confidence intervals~\shortcite{dube_mathematical_2008} fails during multiple comparisons, because of the decline of the coverage probability. On the other hand, methods based on the uncertainty~\shortcite{bhat_single_2009} do not take the number of repetitions into account. We propose a novel method, as part of our \emph{dpcR} package \cite{burdukiewicz_2014}, for comparing results of dPCR experiments using rigorous statistical approach. 
     
     \end{block}
     
     \vfill
             
      \begin{block}{Test scheme}
-    Generalized Linear Models allows creating a linear model for data, where for example response variable has non-normal distributions (as binomially distributed positive partitions in digital PCR experiments). We propose a linear model reflecting relationships in results of digital PCR:
+    Generalized Linear Models (GLM) allows creating a linear model for data, where for example response variable has non-normal distributions (as binomially distributed positive partitions in dPCR experiments). We propose a linear model reflecting relationships in results of dPCR experiments:
     \begin{equation}
     \log{Y} = \beta^T X
     \end{equation}
@@ -106,13 +106,13 @@ Cottbus--Senftenberg, Germany}
     \end{block}
     \vfill    
     
-    \begin{block}{Sample run}
-    Ten array digital PCR experiments (765 partitions) were generated. First five have from 9 to 11 molecules in a single array. Last five experiments have from 55 to 65 molecules. All experiments were compared using proposed framework.
+    \begin{block}{Sample reaction}
+    Ten array dPCR experiments (765 partitions) were generated. First five have from 9 to 11 molecules in a single array. Last five experiments have from 55 to 65 molecules. All experiments were compared using the proposed framework.
     \end{block}
     \vfill 
     
     
-    \begin{block}{Sample run - results}
+    \begin{block}{Sample reaction - results}
 <<dube_bat, echo = FALSE, message=FALSE,fig.width=12.5,fig.height=15.3>>=
 load("ints_plot.RData")
 
@@ -133,7 +133,7 @@ ggplot(data=indat,aes(x= experiment,y = lambda,col = name))+
           legend.direction="horizontal", legend.position = "bottom",
           legend.background = element_rect(fill="NA"))
 @
-Black triangle marks real value of mean copies per partitions. Colour dots marks estimated values of mean copies per partitions. Positions of points are dodged only for purpose of readability.
+Black triangle marks real value of mean copies per partitions. Colored dots marks estimated values of mean copies per partitions. Positions of points are dodged only for purpose of readability.
     \end{block}
     \vfill 
     
@@ -155,7 +155,7 @@ Black triangle marks real value of mean copies per partitions. Colour dots marks
             
        
     \begin{block}{Evaluation of proposed framework}
-    The proposed framework was evaluated in three Monte Carlo experiments (2000 times repetitions each) with accordingly 1000, 5000 (results not shown) and 10 000 partitions. During each repetition of the Monte Carlo scheme, a set of partitions was randomly generated~\shortcite{dube_mathematical_2008} with a determined number of molecules ('Base number of molecules' on X-axis). The set was copied and a number of molecules ('Added number of molecules' on Y-axis) was added to randomly chosen partitions. Two obtained arrays were compared using proposed method and the mean p-values alongside with their standard deviation are presented on chart below.
+    The proposed framework was evaluated in three Monte Carlo experiments (2000 times repetitions each) with accordingly 1000, 5000 (results not shown) and 10k partitions. During each repetition of the Monte Carlo scheme, a set of partitions was randomly generated~\shortcite{dube_mathematical_2008} with a determined number of molecules ('Base number of molecules' on X-axis). The set was copied and a number of molecules ('Added number of molecules' on Y-axis) was added to randomly chosen partitions. Two obtained arrays were compared using proposed method and the mean p-values alongside with their standard deviation are presented on chart below.
 
     \end{block}
     \vfill     

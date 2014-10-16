@@ -14,9 +14,21 @@ get_ints <- function(number_of_exps) {
   list(ints = cbind(dpcrtab[seq(1, nrow(dpcrtab), by = 2), 3:5], 
         dpcrtab[seq(1, nrow(dpcrtab), by = 2) + 1, 3:5],
         modeltab[, -1]),
-       real_m = colSums(dat))
+       real_m = colSums(dat),
+       test_obj = test_counts(dat))
 }
 
 ints5 <- get_ints(5)
 
-save(ints5, file = "ints_plot.RData")
+colnames(ints5[["ints"]]) <- rep(c("lambda", "low", "up"), 3)
+method_names <- c("Dube", "Bhat", "GLM")
+indat <- do.call(rbind, lapply(0L:2, function(i) {
+  data.frame(experiment = names(ints5[["real_m"]]),
+             name = rep(method_names[i + 1], nrow(ints5[["ints"]])),
+             real = ints5[["real_m"]],
+             ints5[["ints"]][, 1L:3+3*i])
+}))
+
+ct <- ints5[["test_obj"]]
+
+save(indat, file = "ints_plot.RData")

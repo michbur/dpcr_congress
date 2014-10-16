@@ -143,6 +143,10 @@ grid.arrange(p1 + guides(fill = FALSE, size = FALSE),
      
     Estimated means copies per partitions ($\lambda$) obtained from the model are compared using multiple t-test~\shortcite{bretz_2010}.
     
+    \hskip 0.5cm
+    
+    The linear model above can be used only when the concentration of template molecules in sample is small (positive partitions contains very rarely more than 1 template particle). In situation when partitions are more saturated with template molecules, binomial regression is more precise. 
+    
     \end{block}
     \vfill    
     
@@ -153,25 +157,34 @@ grid.arrange(p1 + guides(fill = FALSE, size = FALSE),
     
     
     \begin{block}{Sample run - results}
-    <<dube_bat, echo = FALSE, message=FALSE,results='asis'>>=
+<<dube_bat, echo = FALSE, message=FALSE,fig.width=14.3,fig.height=15.3>>=
 load("ints_plot.RData")
 
-colnames(ints5[["ints"]]) <- rep(c("lambda", "low", "up"), 3)
-
-# method_names <- c("Dube", "Bhat", "GLM")
-# indat <- do.call(rbind, lapply(0L:2, function(i) {
-#   data.frame(experiment = names(ints5[["real_m"]]),
-#              name = rep(method_names[i + 1], nrow(ints5[["ints"]])), 
-#              real = ints5[["real_m"]],
-#              ints5[["ints"]][, 1L:3+3*i])
-# }))
-
+ggplot(data=indat,aes(x= experiment,y = lambda,col = name))+
+  geom_errorbar(aes(ymin=low,ymax=up),size=2) +
+  geom_point(shape=16, size = 6, position = position_dodge(w = 0.6, h = 0)) + 
+  geom_point(aes(y=real/765), shape=17, size = 6, colour = "black", alpha = 0.25) +
+  scale_x_discrete("Experiment name") + 
+  scale_y_continuous(expression(lambda)) + 
+  scale_color_discrete("Method name") + 
+    theme(plot.background=element_rect(fill = "transparent",colour = "transparent"),
+          axis.text.x = element_text(size=16), axis.text.y = element_text(size=16),
+          axis.title.x = element_text(size=19, vjust = -1), 
+          axis.title.y = element_text(size=19, vjust = 1),
+          legend.text = element_text(size=16), legend.title = element_text(size=19),
+          plot.title = element_text(size=27),
+          panel.background = element_rect(fill = "transparent",colour = "black"),
+          legend.direction="horizontal", legend.position = "bottom",
+          legend.background = element_rect(fill="NA"))
 @
-
+Black triangle marks real value of mean copies per partitions. Colour dots marks estimated values of mean copies per partitions. Positions of points are dodged only for purpose of readability.
     \end{block}
     \vfill 
     
-    
+    \begin{block}{Sample run}
+    General linear models can be used for multple comparision of digital PCR experiments while still controlling type 1 errors. They can be also used to determine accurate confidence intervals for estimated mean copy numbers.
+    \end{block}
+    \vfill 
      
      
      

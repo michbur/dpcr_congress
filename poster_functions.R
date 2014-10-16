@@ -6,7 +6,12 @@ plot_dpcrtest <- function(test_stats) {
   
   test_df[["added_molecules"]] <- as.factor(test_df[["added_molecules"]])
   test_df[["base_number"]] <- as.factor(test_df[["base_number"]])
-  test_df[["mean"]] <- cut(test_df[["mean"]], c(0, 0.001, 0.01, 0.05, 0.25, 0.5, 1), include.lowest = TRUE)
+  test_df[["mean"]] <- cut(test_df[["mean"]], c(0, 0.001, 0.01, 0.05, 0.25, 0.5, 1), 
+                           include.lowest = TRUE)
+  test_df[["sd"]] <- cut(test_df[["sd"]], c(0, 1e-4, 1e-3, 0.01, 0.1), 
+                         include.lowest = TRUE)
+
+  
   ggplot(test_df, aes(x = base_number, y = added_molecules)) +
     scale_fill_manual(name = "mean p-value", 
                       values = c("#0072B2", "#56B4E9", "#009E73", 
@@ -14,8 +19,8 @@ plot_dpcrtest <- function(test_stats) {
     geom_tile(aes(x = base_number, y = added_molecules, fill = mean)) +
     theme(legend.background = element_rect(fill="NA")) +
     geom_point(aes(x = base_number, y = added_molecules, size = sd), range = c(5, 12)) +
-    scale_size_continuous(name = "Standard deviation of p-value:", 
-                          breaks = c(0, 0.0005, 0.005, 0.05, 0.5)) +
+    scale_size_discrete(name = "Standard deviation of p-value:", 
+                        range = c(2, 9)) +
     scale_x_discrete("Base number of molecules") +
     scale_y_discrete("Added number of molecules") +
     theme(plot.background=element_rect(fill = "transparent",colour = "transparent"),

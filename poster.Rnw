@@ -116,7 +116,7 @@ Cottbus--Senftenberg, Germany}
     \vfill 
     
     
-<<<<<<< HEAD
+
     \begin{block}{Sample reaction - results}
 <<dube_bat, echo = FALSE, message=FALSE,fig.width=12.5,fig.height=12.5>>=
 load("ints_plot.RData")
@@ -188,7 +188,9 @@ grid.arrange(p1 + guides(fill = FALSE, size = FALSE),
     
      
      \begin{block}{Summary}
-     Our method predicts estimated means copies per partitions using Poisson or binomial regression. Afterwards, estimates are compared against themselves using t-test. Obtained p-values and confidence intervals does not require further correction, because the familywise error is controlled through the whole analysis. 
+
+     Our method, based on GLM, predicts estimated means copies per partitions using Poisson or binomial regression. Afterwards, estimates are compared against themselves using t-test. Obtained p-values and confidence intervals does not require further correction, because the familywise error is controlled through the whole analysis. 
+
     \end{block}
     \vfill 
      

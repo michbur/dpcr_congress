@@ -54,7 +54,6 @@ library(xtable)
 library(ggplot2)
 library(grid)
 library(gridExtra)
-library(dpcR)
 source("poster_functions.R")
 load("dpcrposter_data.RData")
 @
@@ -62,11 +61,6 @@ load("dpcrposter_data.RData")
 
 \date{}
 \author{Micha\l{}  Burdukiewicz\inst{1}, Stefan R\"odiger\inst{2}}
-% \institute{\begin{tabular}[h]{c@{\hskip 4cm}c}
-%       \textsuperscript{1}Department of Genomics & \textsuperscript{2}Institute of Mathematics and Computer Science \\
-%       University of Wroc?aw & Wroc?aw University of Technology
-%   \end{tabular}  
-% }
 
 \institute{\textsuperscript{1}Department of Genomics, University of Wroc\l{}aw, Poland 
 
@@ -84,55 +78,14 @@ Cottbus--Senftenberg, Germany}
           \parbox[t][\columnheight]{\textwidth}
             {
     \begin{block}{Introduction}
-    We propose a method of comparing results of digital PCR experiments using rigorious statistical approach. An approach based on the confidence intervals~\shortcite{dube_mathematical_2008} fails during multiple comparisions, because of the decline of the coverage probability. On the other hand, methods based on the uncertainty~\shortcite{bhat_single_2009} do not take into account number of repetitions.
+    Currently, there are no reliable method of comparing results of digital PCR experiments and estimated means copies per partitions ($\lambda$). An approach based on the confidence intervals~\shortcite{dube_mathematical_2008} fails during multiple comparisions, because of the decline of the coverage probability. On the other hand, methods based on the uncertainty~\shortcite{bhat_single_2009} do not take into account number of repetitions. We propose a novel method of comparing results of digital PCR experiments using rigorious statistical approach. 
     
-    \hskip 0.5cm
-    
-    Our method, based on Generalized Linear Models (GLM), predicts rates of digital PCR experiments using Poisson regression. Afterwards, estimates are compared against themselves using t-test. Obtained p-values and confidence intervals does not require further correction, because the familywise error is controlled through the whole analysis.
     \end{block}
     
     \vfill
             
-    
-    \begin{block}{Monte Carlo results}
-    <<mc_figures, echo = FALSE, message=FALSE,fig.width=12.3,fig.height=22>>=
-p1 <- plot_dpcrtest(mc1000stats) + ggtitle("1 000 partitions")
-#p2 <- plot_dpcrtest(mc5000stats) + ggtitle("5000 partitions")
-p3 <- plot_dpcrtest(mc10000stats) + ggtitle("10 000 partitions")
-
-mylegend <-g_legend(p1 + theme(legend.direction="horizontal")) 
-
-grid.arrange(p1 + guides(fill = FALSE, size = FALSE),
-             p3 + guides(fill = FALSE, size = FALSE),
-             mylegend,
-             nrow = 3, heights=c(10, 10, 1))
-@
-
-    \end{block}
-    \vfill  
-    
-    \begin{block}{Evaluation of proposed framework}
-    The proposed framework was evaluated in three Monte Carlo experiments (2000 times repetitions each) with accordingly 1000, 5000 (results not shown) and 10 000 partitions. During each repetition of the Monte Carlo scheme, a set of partitions was randomly generated~\shortcite{dube_mathematical_2008} with a determined number of molecules ('Base number of molecules' on X-axis). The set was copied and a number of molecules ('Added number of molecules' on Y-axis) was added to randomly chosen partitions. Two obtained arrays were compared using proposed method. The p-value of test was saved.
-
-    \end{block}
-    \vfill  
-            }
-        \end{minipage}
-      \end{beamercolorbox}
-    \end{column}
-    
-    
-%new column ------------------------------------------------------    
-    
-    \begin{column}{.53\textwidth}
-      \begin{beamercolorbox}[center,wd=\textwidth]{postercolumn}
-        \begin{minipage}[T]{.95\textwidth}  
-          \parbox[t][\columnheight]{\textwidth}
-            {
-            
-       
-    \begin{block}{Test scheme}
-    Generalized Linear Models (GLM) allows statistical analysis of digital PCR results, by fitting a given probability distribution to the data. The linear model has following form:
+     \begin{block}{Test scheme}
+    Generalized Linear Models allows creating a linear model for data, where for example response variable has non-normal distributions (as binomially distributed positive partitions in digital PCR experiments). We propose a linear model reflecting relationships in results of digital PCR:
     \begin{equation}
     \log{Y} = \beta^T X
     \end{equation}
@@ -141,11 +94,14 @@ grid.arrange(p1 + guides(fill = FALSE, size = FALSE),
     
     \hskip 0.5cm
      
-    Estimated means copies per partitions ($\lambda$) obtained from the model are compared using multiple t-test~\shortcite{bretz_2010}.
+    Estimated means copies per partitions obtained from the model are compared each other using multiple t-test~\shortcite{bretz_2010}.
     
     \hskip 0.5cm
+    \end{block}
+    \vfill   
     
-    The linear model above can be used only when the concentration of template molecules in sample is small (positive partitions contains very rarely more than 1 template particle). In situation when partitions are more saturated with template molecules, binomial regression is more precise. 
+    \begin{block}{Restrictions}
+    The linear model above can be used only when the concentration of template molecules in sample is small (positive partitions contain very rarely more than 1 template particle). In situation when partitions are more saturated with template molecules, binomial regression is more precise.
     
     \end{block}
     \vfill    
@@ -157,7 +113,7 @@ grid.arrange(p1 + guides(fill = FALSE, size = FALSE),
     
     
     \begin{block}{Sample run - results}
-<<dube_bat, echo = FALSE, message=FALSE,fig.width=14.3,fig.height=15.3>>=
+<<dube_bat, echo = FALSE, message=FALSE,fig.width=12.5,fig.height=15.3>>=
 load("ints_plot.RData")
 
 ggplot(data=indat,aes(x= experiment,y = lambda,col = name))+
@@ -181,11 +137,51 @@ Black triangle marks real value of mean copies per partitions. Colour dots marks
     \end{block}
     \vfill 
     
-    \begin{block}{Sample run}
-    General linear models can be used for multple comparision of digital PCR experiments while still controlling type 1 errors. They can be also used to determine accurate confidence intervals for estimated mean copy numbers.
+    
+   
+            }
+        \end{minipage}
+      \end{beamercolorbox}
+    \end{column}
+    
+    
+%new column ------------------------------------------------------    
+    
+    \begin{column}{.53\textwidth}
+      \begin{beamercolorbox}[center,wd=\textwidth]{postercolumn}
+        \begin{minipage}[T]{.95\textwidth}  
+          \parbox[t][\columnheight]{\textwidth}
+            {
+            
+       
+    \begin{block}{Evaluation of proposed framework}
+    The proposed framework was evaluated in three Monte Carlo experiments (2000 times repetitions each) with accordingly 1000, 5000 (results not shown) and 10 000 partitions. During each repetition of the Monte Carlo scheme, a set of partitions was randomly generated~\shortcite{dube_mathematical_2008} with a determined number of molecules ('Base number of molecules' on X-axis). The set was copied and a number of molecules ('Added number of molecules' on Y-axis) was added to randomly chosen partitions. Two obtained arrays were compared using proposed method and the mean p-values alongside with their standard deviation are presented on chart below.
+
+    \end{block}
+    \vfill     
+       
+    \begin{block}{Statistical power - Monte Carlo simulations}
+    <<mc_figures, echo = FALSE, message=FALSE,fig.width=14.3,fig.height=24>>=
+p1 <- plot_dpcrtest(mc1000stats) + ggtitle("1 000 partitions")
+#p2 <- plot_dpcrtest(mc5000stats) + ggtitle("5000 partitions")
+p3 <- plot_dpcrtest(mc10000stats) + ggtitle("10 000 partitions")
+
+mylegend <-g_legend(p1 + theme(legend.direction="horizontal")) 
+
+grid.arrange(p1 + guides(fill = FALSE, size = FALSE),
+             p3 + guides(fill = FALSE, size = FALSE),
+             mylegend,
+             nrow = 3, heights=c(10, 10, 1))
+@
+
+    \end{block}
+    \vfill  
+    
+     
+     \begin{block}{Summary}
+     Our method, based on Generalized Linear Models (GLM), predicts estimated means copies per partitions using Poisson or binomial regression. Afterwards, estimates are compared against themselves using t-test. Obtained p-values and confidence intervals does not require further correction, because the familywise error is controlled through the whole analysis. 
     \end{block}
     \vfill 
-     
      
      
     \begin{block}{Bibliography}

@@ -11,9 +11,12 @@ get_ints <- function(number_of_exps) {
   dat <- bind_dpcr(adpcr1, adpcr2)
   modeltab <- slot(test_counts(dat), "group_coef")
   dpcrtab <- summary(dat, print = FALSE)[["summary"]]
-  cbind(dpcrtab[seq(1, nrow(dpcrtab), by = 2), 3:5], 
+  list(ints = cbind(dpcrtab[seq(1, nrow(dpcrtab), by = 2), 3:5], 
         dpcrtab[seq(1, nrow(dpcrtab), by = 2) + 1, 3:5],
-        modeltab[, -1])
+        modeltab[, -1]),
+       real_m = colSums(dat))
 }
 
-tmp <- get_ints(20)
+ints5 <- get_ints(5)
+
+save(ints5, file = "ints_plot.RData")

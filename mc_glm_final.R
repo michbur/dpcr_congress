@@ -72,8 +72,8 @@ stopCluster(cl)
 
 save(mc1000b, mc5000b, mc10000b, file = "fin_dpcrposter_rawdatabin.RData")
 
-mc1000stats <- calc_teststats(mc1000)
-mc5000stats <- calc_teststats(mc5000)
-mc10000stats <- calc_teststats(mc10000)
+mc1000bstats <- calc_teststats(mc1000b)
+mc5000bstats <- calc_teststats(mc5000b)
+mc10000bstats <- calc_teststats(mc10000b)
 
 save(mc1000stats, mc5000stats, mc10000stats, file = "dpcrposter_data.RData")

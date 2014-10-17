@@ -115,7 +115,7 @@ Cottbus--Senftenberg, Germany}
     
 
     \begin{block}{Sample reaction - results}
-<<dube_bat, echo = FALSE, message=FALSE,fig.width=12,fig.height=11>>=
+<<dube_bat, echo = FALSE, message=FALSE,fig.width=12,fig.height=11.3>>=
 load("ints_plot.RData")
 
 ggplot(data=indat,aes(x= experiment,y = lambda,col = name))+
@@ -190,7 +190,7 @@ grid.arrange(p1 + guides(fill = FALSE, size = FALSE),
      
      \begin{block}{Summary}
 
-     Our method, based on GLM, predicts estimated means copies per partitions using Poisson or binomial regression. Afterwards, estimates are compared against themselves using t-test. Obtained p-values and confidence intervals does not require further correction, because the familywise error is controlled through the whole analysis. 
+     Our method, based on GLM, predicts estimated means copies per partitions using Poisson or binomial regression. Afterwards, estimates are compared against themselves using t-test. Obtained p-values and confidence intervals do not require further correction, because the familywise error is controlled through the whole analysis. 
      
      \end{block}
     \vfill  

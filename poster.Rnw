@@ -79,8 +79,7 @@ Cottbus--Senftenberg, Germany}
             {
     \begin{block}{Introduction}
 
-    Currently, there are no reliable method of comparing estimated means copies per partitions ($\lambda$). An approach based on the confidence intervals~\shortcite{dube_mathematical_2008} fails during multiple comparisions, because of the decline of the coverage probability. On the other hand, methods based on the uncertainty~\shortcite{bhat_single_2009} do not take into account number of repetitions. We propose a novel method, as part of our \emph{dpcR} package \cite{burdukiewicz_2014}, for comparing results of dPCR experiments using rigorous statistical approach. 
-
+        Currently, there are several methods of comparing estimated means copies per partitions ($\lambda$). An approach based on the confidence intervals~\shortcite{dube_mathematical_2008} fails during multiple comparisons, because of the decline of the coverage probability. On the other hand, methods based on the uncertainty~\shortcite{bhat_single_2009} do not take the number of repetitions into account. We propose a novel method (framework), as part of our \emph{dpcR} package \cite{burdukiewicz_2014}, for comparing results of dPCR experiments using a rigorous statistical approach. 
     
     \end{block}
     
@@ -88,7 +87,7 @@ Cottbus--Senftenberg, Germany}
             
      \begin{block}{Test scheme}
 
-    Generalized Linear Models (GLM) are linear models for data, where response variable has non-normal distributions (as binomially distributed positive partitions in digital PCR experiments). We propose a model reflecting relationships in results of digital PCR:
+    Generalized Linear Models (GLM) are linear models for data, where the response variables may have non-normal distributions (as binomially distributed positive partitions in digital PCR experiments). We propose a model reflecting relationships in results of digital PCR as given by:
 
     \begin{equation*}
     \log{Y} = \beta^T X
@@ -99,16 +98,16 @@ Cottbus--Senftenberg, Germany}
     \hskip 0.5cm
      
     Estimated means copies per partitions obtained from the model are compared each other using multiple t-test~\shortcite{bretz_2010}.
-    
+
     \hskip 0.5cm
     
-    The linear model above can be used only when the concentration of template molecules in sample is small (positive partitions contain very rarely more than 1 template particle). Higher concentrations requires binomial regression.
+       The linear model above can be used only when the concentration of template molecules in samples is small (positive partitions contain very rarely more than 1 template particle). Higher concentrations basically requires binomial regression.
     
     \end{block}
     \vfill    
     
     \begin{block}{Sample reaction}
-    Ten array dPCR experiments (765 partitions) were generated. First five have from 9 to 11 molecules in a single array. Last five experiments have from 55 to 65 molecules. All experiments were compared using the proposed framework.
+        Ten array dPCR experiments (765 partitions) were generated. First five have from 9 to 11 molecules in a single array. Last five experiments have from 55 to 65 molecules. All experiments were compared using the proposed framework.
     \end{block}
     \vfill 
     
@@ -161,11 +160,12 @@ ggplot(data=indat,aes(x= experiment,y = lambda,col = name))+
             
        
     \begin{block}{Evaluation of proposed framework}
-    The proposed framework was evaluated in three Monte Carlo experiments (2000 times repetitions each) with accordingly 1000, 5000 (results not shown) and 10k partitions. During each repetition of the Monte Carlo scheme, a set of partitions was randomly generated~\shortcite{dube_mathematical_2008} with a determined number of molecules ('Base number of molecules' on X-axis). The set was copied and a number of molecules ('Added number of molecules' on Y-axis) was added to randomly chosen partitions. Two obtained arrays were compared using proposed method and the mean p-values alongside with their standard deviation are presented on chart below.
+    The proposed framework was evaluated in three Monte Carlo experiments (2000 times repetitions each) with accordingly 1000, 5000 (results not shown) and 10k partitions. During each repetition of the Monte Carlo scheme, a set of partitions was randomly generated~\shortcite{dube_mathematical_2008} with a determined number of molecules ('Base number of molecules' on X-axis). The set was copied and a number of molecules ('Added number of molecules' on Y-axis) was added to randomly chosen partitions. Two obtained arrays were compared using the proposed method. The mean p-values alongside with their standard deviation are presented in the chart below.
+
     
     \hskip 0.5cm
     
-    The evaluation was performed for both Poisson and binomial regression, but for this data  were no significant differences between them.
+     The evaluation was performed for both Poisson and binomial regression. We found no significant differences between them.
 
     \end{block}
     \vfill     
@@ -190,7 +190,8 @@ grid.arrange(p1 + guides(fill = FALSE, size = FALSE),
      
      \begin{block}{Summary}
 
-     Our method, based on GLM, predicts estimated means copies per partitions using Poisson or binomial regression. Afterwards, estimates are compared against themselves using t-test. Obtained p-values and confidence intervals do not require further correction, because the familywise error is controlled through the whole analysis. 
+Our method, based on GLM, predicts estimated means copies per partitions using Poisson or binomial regression. Afterwards, estimates are compared against themselves using t-test. Obtained p-values and confidence intervals do not require further correction, because the familywise error is controlled through the whole analysis. 
+    
      
      \end{block}
     \vfill  
@@ -201,7 +202,7 @@ grid.arrange(p1 + guides(fill = FALSE, size = FALSE),
      \url{http://michbur.github.io/pcRuniveRsum/}$\begin{array}{l}
         \begin{figure}[ht]
         \centering
-        \scalebox{0.3}{
+        \scalebox{0.5}{
           \includegraphics{pcruniversum_qr.png}
         }
         \end{figure}
